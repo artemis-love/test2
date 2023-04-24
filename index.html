@@ -30,10 +30,13 @@
 
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-service.js"></script>
     <script>
-      // Initialize Firebase
-      const firebaseConfig = {
-        apiKey: "AIzaSyDsr1glfr5UqZFXTQsr8o6gchv32Z7O6ws",
+      import { initializeApp } from 'firebase/app';
+
+// TODO: Replace the following with your app's Firebase project configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDsr1glfr5UqZFXTQsr8o6gchv32Z7O6ws",
   authDomain: "month-3-p1.firebaseapp.com",
   databaseURL: "https://month-3-p1-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "month-3-p1",
@@ -41,9 +44,9 @@
   messagingSenderId: "374738959447",
   appId: "1:374738959447:web:0038267ac4afd115b1f712",
   measurementId: "G-YLCEL9W2FS"
-      };
+};
 
-      firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
       
       // Get a reference to the database service
       const db = firebase.firestore();
