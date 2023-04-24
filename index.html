@@ -49,12 +49,12 @@
       const db = firebase.firestore();
       
       function submitData() {
-        const name = document.getElementById("name").value;
+        const fname = document.getElementById("name").value;
         const age = document.getElementById("age").value;
         
         db.collection("users").add({
-          name: name,
-          age: age
+          fname: name,
+          age: age,
         })
         .then(function(docRef) {
           console.log("Document written with ID: ", docRef.id);
