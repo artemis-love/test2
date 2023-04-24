@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dynamic Firebase Table Example</title>
+  </head>
+  <body>
+    <h1>Dynamic Firebase Table Example</h1>
+    
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name"><br><br>
+      
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age"><br><br>
+      
+      <button type="button" onclick="submitData()">Submit</button>
+    </form>
+    
+    <br><br>
+    
+    <table id="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js"></script>
+    <script>
+      // Initialize Firebase
+      const firebaseConfig = {
+        apiKey: "AIzaSyDsr1glfr5UqZFXTQsr8o6gchv32Z7O6ws",
+  authDomain: "month-3-p1.firebaseapp.com",
+  databaseURL: "https://month-3-p1-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "month-3-p1",
+  storageBucket: "month-3-p1.appspot.com",
+  messagingSenderId: "374738959447",
+  appId: "1:374738959447:web:0038267ac4afd115b1f712",
+  measurementId: "G-YLCEL9W2FS"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      
+      // Get a reference to the database service
+      const db = firebase.firestore();
+      
+      function submitData() {
+        const name = document.getElementById("name").value;
+        const age = document.getElementById("age").value;
+        
+        db.collection("users").add({
+          name: name,
+          age: age
+        })
+        .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function(error) {
+          console.error("Error adding document: ", error);
+        });
+      }
+      
+      // Get data from Firebase and display it as a table
+      db.collection("users").onSnapshot(function(querySnapshot) {
+        const tableBody = document.getElementById("table-body");
+        tableBody.innerHTML = "";
+        
+        querySnapshot.forEach(function(doc) {
+          const data = doc.data();
+          
+          const row = tableBody.insertRow(-1);
+          const nameCell = row.insertCell(0);
+          const ageCell = row.insertCell(1);
+          
+          nameCell.innerHTML = data.name;
+          ageCell.innerHTML = data.age;
+        });
+      });
+    </script>
+  </body>
+</html>
